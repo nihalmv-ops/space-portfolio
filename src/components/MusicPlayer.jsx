@@ -1,34 +1,47 @@
+import { useEffect, useRef, useState } from "react";
 
-
-import { useRef, useState } from "react";
-
-/**
- * Floating background-music toggle, bottom-right corner.
- * Just play / mute — nothing else.
- *
- * IMPORTANT — about the audio file:
- * This expects an MP3 at /public/audio/track.mp3.
- * Add your own licensed copy there, named exactly that, or update
- * the `src` path below to match your filename.
- *
- * Browsers block autoplay with sound until the user interacts with
- * the page, so this starts paused — click to play.
- */
 export default function MusicPlayer() {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
 
-  const toggle = () => {
+  useEffect(() => {
+    const startMusic = async () => {
+      if (!audioRef.current) return;
+
+      try {
+        await audioRef.current.play();
+        setPlaying(true);
+      } catch (err) {
+        console.log("Autoplay blocked");
+      }
+
+      window.removeEventListener("click", startMusic);
+      window.removeEventListener("touchstart", startMusic);
+    };
+
+    window.addEventListener("click", startMusic);
+    window.addEventListener("touchstart", startMusic);
+
+    return () => {
+      window.removeEventListener("click", startMusic);
+      window.removeEventListener("touchstart", startMusic);
+    };
+  }, []);
+
+  const toggle = async () => {
     if (!audioRef.current) return;
+
     if (playing) {
       audioRef.current.pause();
+      setPlaying(false);
     } else {
-      audioRef.current.play().catch(() => {
-        // Autoplay/permission errors land here — safe to ignore,
-        // button just stays in "paused" state.
-      });
+      try {
+        await audioRef.current.play();
+        setPlaying(true);
+      } catch (err) {
+        console.log("Playback failed");
+      }
     }
-    setPlaying(!playing);
   };
 
   return (
@@ -40,16 +53,21 @@ export default function MusicPlayer() {
         zIndex: 60,
       }}
     >
-      <audio ref={audioRef} loop src="/audio/track.mp3" />
+      <audio
+        ref={audioRef}
+        src="/audio/background.mp3"
+        loop
+        preload="auto"
+      />
 
       <button
         onClick={toggle}
-        aria-label={playing ? "Mute music" : "Play music"}
+        aria-label={playing ? "Pause music" : "Play music"}
         style={{
           width: 44,
           height: 44,
           borderRadius: "50%",
-          background: playing ? "#7c3aed" : "rgba(10,10,16,0.6)",
+          background: playing ? "#746b84" : "rgba(10,10,16,0.6)",
           border: "1px solid rgba(255,255,255,0.15)",
           backdropFilter: "blur(10px)",
           color: "#fff",
@@ -57,6 +75,7 @@ export default function MusicPlayer() {
           alignItems: "center",
           justifyContent: "center",
           fontSize: "1rem",
+          cursor: "pointer",
         }}
       >
         {playing ? "🔊" : "🔇"}

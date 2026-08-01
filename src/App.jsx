@@ -8,28 +8,36 @@ import About from "./components/Sections/About";
 import Projects from "./components/Sections/Projects";
 import Skills from "./components/Sections/Skills";
 import Contact from "./components/Sections/Contact";
+import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
 
   return (
     <>
-      <Preloader onDone={() => setLoaded(true)} />
+      {!loaded && <Preloader onDone={() => setLoaded(true)} />}
 
-      {/* Fixed infinite-space 3D background — stays put while page scrolls over it */}
-      <SpaceScene />
+      {loaded && (
+        <>
+          {/* Fixed infinite-space 3D background */}
+          <SpaceScene />
 
-      <Navbar />
+          <Navbar />
 
-      <SmoothScroll>
-        <main className="content">
-          <Hero />
-          <About />
-          <Projects />
-          <Skills />
-          <Contact />
-        </main>
-      </SmoothScroll>
+          <SmoothScroll>
+            <main className="content">
+              <Hero />
+              <About />
+              <Projects />
+              <Skills />
+              <Contact />
+            </main>
+          </SmoothScroll>
+
+          {/* Floating Music Player */}
+          <MusicPlayer />
+        </>
+      )}
     </>
   );
 }

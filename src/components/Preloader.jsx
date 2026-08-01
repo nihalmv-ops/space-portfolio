@@ -5,23 +5,31 @@ export default function Preloader({ onDone }) {
   const [progress, setProgress] = useState(0);
   const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((p) => {
-        const next = p + Math.random() * 18;
-        if (next >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setVisible(false);
-            onDone?.();
-          }, 400);
-          return 100;
-        }
-        return next;
-      });
-    }, 140);
-    return () => clearInterval(interval);
-  }, [onDone]);
+useEffect(() => {
+  const interval = setInterval(() => {
+    setProgress((p) => {
+      const next = p + Math.random() * 18;
+
+      if (next >= 100) {
+        clearInterval(interval);
+
+        setTimeout(() => {
+          setVisible(false);
+
+          // Notify App that loading is complete
+          onDone?.();
+
+        }, 400);
+
+        return 100;
+      }
+
+      return next;
+    });
+  }, 140);
+
+  return () => clearInterval(interval);
+}, [onDone]);
 
   return (
     <AnimatePresence>
