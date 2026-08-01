@@ -5,81 +5,94 @@ export default function MusicPlayer() {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const startMusic = async () => {
-      if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
+    const playMusic = async () => {
       try {
-        await audioRef.current.play();
-        setPlaying(true);
-      } catch (err) {
-        console.log("Autoplay blocked");
-      }
+        audio.volume = 0;
+        await audio.play();
 
-      window.removeEventListener("click", startMusic);
-      window.removeEventListener("touchstart", startMusic);
+        setPlaying(true);
+
+        // Smooth fade in
+        let volume = 0;
+        const fade = setInterval(() => {
+          volume += 0.05;
+
+          if (volume >= 1) {
+            volume = 1;
+            clearInterval(fade);
+          }
+
+          audio.volume = volume;
+        }, 100);
+      } catch (err) {
+        console.log("Playback blocked");
+      }
     };
 
-    window.addEventListener("click", startMusic);
-    window.addEventListener("touchstart", startMusic);
+    // Preloader's "ENTER SITE" click bubbles up here
+    window.addEventListener("click", playMusic, { once: true });
 
     return () => {
-      window.removeEventListener("click", startMusic);
-      window.removeEventListener("touchstart", startMusic);
+      window.removeEventListener("click", playMusic);
     };
   }, []);
 
   const toggle = async () => {
-    if (!audioRef.current) return;
+    const audio = audioRef.current;
+    if (!audio) return;
 
     if (playing) {
-      audioRef.current.pause();
+      audio.pause();
       setPlaying(false);
     } else {
       try {
-        await audioRef.current.play();
+        await audio.play();
         setPlaying(true);
       } catch (err) {
-        console.log("Playback failed");
+        console.log(err);
       }
     }
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: "2rem",
-        right: "2rem",
-        zIndex: 60,
-      }}
-    >
+    <>
       <audio
         ref={audioRef}
         src="/audio/background.mp3"
-        loop
         preload="auto"
+        loop
       />
 
       <button
         onClick={toggle}
-        aria-label={playing ? "Pause music" : "Play music"}
+        aria-label={playing ? "Mute Music" : "Play Music"}
         style={{
-          width: 44,
-          height: 44,
+          position: "fixed",
+          bottom: "28px",
+          right: "28px",
+          width: "52px",
+          height: "52px",
           borderRadius: "50%",
-          background: playing ? "#746b84" : "rgba(10,10,16,0.6)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(255,255,255,.15)",
+          background: playing
+            ? "rrgba(255,255,255,.15)"
+            : "rgba(15,15,20,.65)",
+          backdropFilter: "blur(15px)",
           color: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "1rem",
           cursor: "pointer",
+          fontSize: "22px",
+          zIndex: 99999,
+          transition: ".3s",
+          boxShadow: playing
+            ? "0 0 25px rgba(124,58,237,.45)"
+            : "0 10px 25px rgba(0,0,0,.35)",
         }}
       >
         {playing ? "🔊" : "🔇"}
       </button>
-    </div>
+    </>
   );
 }

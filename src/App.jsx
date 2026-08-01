@@ -11,15 +11,14 @@ import Contact from "./components/Sections/Contact";
 import MusicPlayer from "./components/MusicPlayer";
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   return (
     <>
-      {!loaded && <Preloader onDone={() => setLoaded(true)} />}
-
-      {loaded && (
+      {!entered ? (
+        <Preloader onDone={() => setEntered(true)} />
+      ) : (
         <>
-          {/* Fixed infinite-space 3D background */}
           <SpaceScene />
 
           <Navbar />
@@ -34,7 +33,6 @@ function App() {
             </main>
           </SmoothScroll>
 
-          {/* Floating Music Player */}
           <MusicPlayer />
         </>
       )}
