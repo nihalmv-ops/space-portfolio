@@ -7,6 +7,8 @@ import NebulaBackground from "./NebulaBackground";
 import PlanetField from "./PlanetField";
 import ScrollCamera from "./ScrollCamera";
 import SpaceAudio from "./SpaceAudio";
+import MeteorField from "./MeteorField";
+import SpaceDust from "./SpaceDust";
 
 export default function SpaceScene() {
   return (
@@ -50,9 +52,12 @@ export default function SpaceScene() {
         <Environment preset="sunset" />
 
         <NebulaBackground />
-        <StarField />
         <PlanetField />
+        <StarField />
+        
         <ScrollCamera />
+        <SpaceDust />
+        <MeteorField />
 
         <EffectComposer>
           <Bloom
