@@ -4,23 +4,20 @@ import { Float, Environment } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
 import { scrollState } from "./SmoothScroll";
+import {
+  EffectComposer,
+  Bloom,
+} from "@react-three/postprocessing";
+import { AdditiveBlending, Color } from "three";
 
-/**
- * ============================================================
- * INFINITE GALAXY SCENE
- * - 20,000+ stars rendered as a single GPU shader point-cloud
- *   (one draw call, not 20,000 mesh objects — this is what keeps
- *   it fast)
- * - Realistic-ish planets with rotation + one ringed planet
- * - Nebula background rendered as a shader on a giant sphere
- * - Mouse parallax layered on top of the scroll-driven fly-through
- * - GSAP smooths the camera motion instead of a manual lerp
- * ============================================================
- */
+import { useTexture } from "@react-three/drei";
+import { DoubleSide } from "three";
 
-const STAR_COUNT = 20000;
+
+
+const STAR_COUNT = 45000;
 const FIELD_DEPTH = 500;
-const FIELD_RADIUS = 90;
+const FIELD_RADIUS = 180;
 
 /* ---------------- Shader star field ---------------- */
 
@@ -50,64 +47,94 @@ const starFragmentShader = `
 `;
 
 function StarField() {
-  const pointsRef = useRef();
-  const materialRef = useRef();
+  const points = useRef();
 
-  const { positions, sizes, phases } = useMemo(() => {
-    const positions = new Float32Array(STAR_COUNT * 3);
-    const sizes = new Float32Array(STAR_COUNT);
-    const phases = new Float32Array(STAR_COUNT);
+  const { positions, colors, sizes } = useMemo(() => {
+    const COUNT = 50000;
 
-    for (let i = 0; i < STAR_COUNT; i++) {
-      const radius = Math.random() * FIELD_RADIUS;
-      const angle = Math.random() * Math.PI * 2;
-      positions[i * 3] = Math.cos(angle) * radius;
-      positions[i * 3 + 1] = Math.sin(angle) * radius;
-      positions[i * 3 + 2] = -Math.random() * FIELD_DEPTH;
-      sizes[i] = Math.random() * 2.2 + 0.5;
-      phases[i] = Math.random() * Math.PI * 2;
+    const positions = new Float32Array(COUNT * 3);
+    const colors = new Float32Array(COUNT * 3);
+    const sizes = new Float32Array(COUNT);
+
+    const palette = [
+      new Color("#ffffff"),
+      new Color("#dbeafe"),
+      new Color("#93c5fd"),
+      new Color("#fde68a"),
+      new Color("#f8fafc"),
+    ];
+
+    for (let i = 0; i < COUNT; i++) {
+      const radius = 250 + Math.random() * 700;
+
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+
+      positions[i * 3] =
+        radius * Math.sin(phi) * Math.cos(theta);
+
+      positions[i * 3 + 1] =
+        radius * Math.sin(phi) * Math.sin(theta);
+
+      positions[i * 3 + 2] =
+        radius * Math.cos(phi);
+
+      const c = palette[Math.floor(Math.random() * palette.length)];
+
+      colors[i * 3] = c.r;
+      colors[i * 3 + 1] = c.g;
+      colors[i * 3 + 2] = c.b;
+
+      sizes[i] = Math.random() * 3 + 0.4;
     }
-    return { positions, sizes, phases };
+
+    return {
+      positions,
+      colors,
+      sizes,
+    };
   }, []);
 
   useFrame((state) => {
-    const camZ = state.camera.position.z;
-    const posAttr = pointsRef.current.geometry.attributes.position;
+    if (!points.current) return;
 
-    for (let i = 0; i < STAR_COUNT; i++) {
-      const z = posAttr.array[i * 3 + 2];
-      if (z > camZ + 5) {
-        posAttr.array[i * 3 + 2] = camZ - FIELD_DEPTH;
-      }
-    }
-    posAttr.needsUpdate = true;
+    points.current.rotation.y =
+      state.clock.elapsedTime * 0.002;
 
-    if (materialRef.current) {
-      materialRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
-    }
-    pointsRef.current.rotation.z = state.clock.getElapsedTime() * 0.008;
+    points.current.rotation.x =
+      Math.sin(state.clock.elapsedTime * 0.04) * 0.02;
   });
 
   return (
-    <points ref={pointsRef}>
+    <points ref={points}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" count={STAR_COUNT} array={positions} itemSize={3} />
-        <bufferAttribute attach="attributes-aSize" count={STAR_COUNT} array={sizes} itemSize={1} />
-        <bufferAttribute attach="attributes-aTwinklePhase" count={STAR_COUNT} array={phases} itemSize={1} />
+        <bufferAttribute
+          attach="attributes-position"
+          count={positions.length / 3}
+          array={positions}
+          itemSize={3}
+        />
+
+        <bufferAttribute
+          attach="attributes-color"
+          count={colors.length / 3}
+          array={colors}
+          itemSize={3}
+        />
       </bufferGeometry>
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={starVertexShader}
-        fragmentShader={starFragmentShader}
-        uniforms={{ uTime: { value: 0 } }}
+
+      <pointsMaterial
+        size={1.4}
+        sizeAttenuation
         transparent
+        opacity={0.95}
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
+        vertexColors
+        blending={AdditiveBlending}
       />
     </points>
   );
 }
-
 /* ---------------- Nebula background shader ---------------- */
 
 const nebulaVertexShader = `
@@ -320,23 +347,63 @@ function SpaceAudio() {
     </div>
   );
 }
-
 export default function SpaceScene() {
   return (
     <div className="canvas-fixed">
-      <Canvas camera={{ position: [0, 0, 10], fov: 60, near: 0.1, far: 600 }} dpr={[1, 1.5]}>
-        <color attach="background" args={["#030308"]} />
-        <fog attach="fog" args={["#030308", 40, 260]} />
-        <ambientLight intensity={0.4} />
-        <pointLight position={[0, 0, 5]} intensity={1} color="#a78bfa" />
-        <pointLight position={[20, 10, -100]} intensity={0.6} color="#f97316" />
+      <Canvas
+        camera={{
+          position: [0, 0, 14],
+          fov: 55,
+          near: 0.1,
+          far: 2000,
+        }}
+        dpr={[1, 2]}
+        gl={{
+          antialias: true,
+          alpha: false,
+          powerPreference: "high-performance",
+        }}
+      >
+        {/* Cinematic Space Fog */}
+        <fog attach="fog" args={["#02030a", 80, 250]} />
 
-        <Environment preset="night" />
+        {/* Lighting */}
+        <ambientLight intensity={0.12} />
 
+        <directionalLight
+          position={[30, 20, 15]}
+          intensity={1.2}
+          color="#9d7dff"
+        />
+
+        <pointLight
+          position={[-20, 10, 15]}
+          intensity={0.8}
+          color="#4b7dff"
+        />
+
+        <pointLight
+          position={[25, -5, -10]}
+          intensity={0.4}
+          color="#ff66cc"
+        />
+
+        <Environment preset="sunset" />
+
+        {/* Your Existing Components */}
         <NebulaBackground />
         <StarField />
         <PlanetField />
         <ScrollCamera />
+
+        {/* Cinematic Bloom */}
+        <EffectComposer>
+          <Bloom
+            intensity={1.1}
+            luminanceThreshold={0.18}
+            luminanceSmoothing={0.9}
+          />
+        </EffectComposer>
       </Canvas>
 
       <SpaceAudio />
