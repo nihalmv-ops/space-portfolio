@@ -1,48 +1,67 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
-import { DoubleSide } from "three";
-import { useSafeTexture } from "./hooks/useSafeTexture";
+import { Float, useTexture } from "@react-three/drei";
+import * as THREE from "three";
 
 export default function Planet({
   position,
   size,
-  color = "#888888",
-  texturePath = null,
+  texture,
+  ringTexture = null,
   ringed = false,
   rotationSpeed = 0.05,
 }) {
   const ref = useRef();
-  const texture = useSafeTexture(texturePath);
+
+  const planetTexture = useTexture(texture);
+  const ringMap = ringTexture ? useTexture(ringTexture) : null;
 
   useFrame((state) => {
     if (ref.current) {
-      ref.current.rotation.y = state.clock.getElapsedTime() * rotationSpeed;
+      ref.current.rotation.y =
+        state.clock.getElapsedTime() * rotationSpeed;
     }
   });
 
   return (
-    <Float speed={0.8} rotationIntensity={0.05} floatIntensity={0.4}>
+    <Float
+      speed={0.8}
+      rotationIntensity={0.08}
+      floatIntensity={0.5}
+    >
       <group position={position}>
+        {/* Planet */}
         <mesh ref={ref} scale={size}>
-          <sphereGeometry args={[1, 64, 64]} />
+          <sphereGeometry args={[1, 128, 128]} />
           <meshStandardMaterial
-            map={texture ?? undefined}
-            color={texture ? "#ffffff" : color}
-            roughness={0.75}
-            metalness={0.15}
+            map={planetTexture}
+            roughness={0.9}
+            metalness={0.02}
           />
         </mesh>
 
-        {ringed && (
-          <mesh rotation={[Math.PI / 2.4, 0, 0]}>
-            <ringGeometry args={[size * 1.5, size * 2.3, 64]} />
+        {/* Atmosphere */}
+        <mesh scale={size * 1.03}>
+          <sphereGeometry args={[1, 64, 64]} />
+          <meshBasicMaterial
+            color="#88ccff"
+            transparent
+            opacity={0.08}
+            side={THREE.BackSide}
+          />
+        </mesh>
+
+        {/* Ring */}
+        {ringed && ringMap && (
+          <mesh rotation={[Math.PI / 2.3, 0, 0]}>
+            <ringGeometry
+              args={[size * 1.55, size * 2.45, 128]}
+            />
             <meshStandardMaterial
-              color="#d8c9a3"
-              side={DoubleSide}
+              map={ringMap}
               transparent
-              opacity={0.6}
-              roughness={0.9}
+              opacity={0.95}
+              side={THREE.DoubleSide}
             />
           </mesh>
         )}
