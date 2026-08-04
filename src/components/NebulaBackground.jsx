@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import { DoubleSide } from "three";
+import { scrollState } from "./SmoothScroll";
 
 export default function NebulaBackground() {
   const milkyWay = useTexture("/textures/milkyway.jpg");

@@ -2,27 +2,34 @@ import { Canvas } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 
-import StarField from "./StarField";
 import NebulaBackground from "./NebulaBackground";
+import StarField from "./StarField";
 import PlanetField from "./PlanetField";
 import ScrollCamera from "./ScrollCamera";
+
 import SpaceAudio from "./SpaceAudio";
 import MeteorField from "./MeteorField";
 import SpaceDust from "./SpaceDust";
 import Asteroids from "./space/Asteroids";
 import SpaceParticles from "./SpaceParticles";
 import ShootingStars from "./ShootingStars";
-import Sun from "./Sun";
 import WarpStars from "./WarpStars";
 import CameraShake from "./CameraShake";
 import GalaxyGlow from "./GalaxyGlow";
+
+
+import GoldenSun from "./GoldenSun";
+
+import DeepSpace from "./DeepSpace";
+import SpaceFade from "./SpaceFade";
+
 
 export default function SpaceScene() {
   return (
     <div className="canvas-fixed">
       <Canvas
        camera={{
-  position: [0, 0, 16],
+  position: [0, 0, -650],
   fov: 48,
   near: 0.1,
   far: 3000,
@@ -61,30 +68,40 @@ export default function SpaceScene() {
 
         <Environment preset="sunset" />
           
-        <NebulaBackground />
-       <PlanetField />
-       <GalaxyGlow />
+       {/* Background */}
+<NebulaBackground />
+<GalaxyGlow />
 
+{/* Far universe */}
+<StarField />
 <WarpStars />
 
+{/* Moving particles */}
+<SpaceParticles />
+<SpaceDust />
+<MeteorField />
+<ShootingStars />
+
+{/* Objects */}
+<PlanetField />
+<Asteroids />
+
+{/* Camera */}
+<ScrollCamera />
+
+{/* Ending sequence */}
+<GoldenSun />
+<DeepSpace />
+<SpaceFade />
+
 <CameraShake />
-        <SpaceParticles />
-        <Sun />
 
-        <ShootingStars />
-        <StarField />
-        <Asteroids />
-        
-        <ScrollCamera />
-        <SpaceDust />
-        <MeteorField />
-
-       <EffectComposer>
- <Bloom
- intensity={2.8}
- luminanceThreshold={0}
- luminanceSmoothing={0.9}
-/>
+<EffectComposer>
+  <Bloom
+    intensity={3}
+    luminanceThreshold={0}
+    luminanceSmoothing={0.9}
+  />
 </EffectComposer>
       </Canvas>
 
