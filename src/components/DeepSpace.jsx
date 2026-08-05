@@ -1,65 +1,51 @@
 import { useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
 
 export default function DeepSpace() {
-
   const stars = useRef();
 
   const positions = useMemo(() => {
-
-    const count = 4000;
-
+    const count = 900;
     const array = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
+      // Spread stars over a huge area
+      array[i * 3] = (Math.random() - 0.5) * 6000;
+      array[i * 3 + 1] = (Math.random() - 0.5) * 6000;
 
-      array[i * 3] = (Math.random() - 0.5) * 800;
-
-      array[i * 3 + 1] = (Math.random() - 0.5) * 800;
-
-      // Very far behind the sun
-      array[i * 3 + 2] = -900 - Math.random() * 1800;
+      // Very far behind the Sun
+      array[i * 3 + 2] = -800 - Math.random() * 6000;
     }
 
     return array;
-
   }, []);
 
   useFrame((state) => {
-
     if (!stars.current) return;
 
-    stars.current.rotation.y =
-      state.clock.elapsedTime * 0.0004;
-
+    // Very slow rotation
+    stars.current.rotation.y = state.clock.elapsedTime * 0.0003;
   });
 
   return (
-
     <points ref={stars}>
-
       <bufferGeometry>
-
         <bufferAttribute
           attach="attributes-position"
-          count={positions.length / 3}
           array={positions}
+          count={positions.length / 3}
           itemSize={3}
         />
-
       </bufferGeometry>
 
       <pointsMaterial
         color="#ffffff"
-        size={0.8}
+        size={0.18}
         transparent
-        opacity={0.9}
+        opacity={0.95}
         depthWrite={false}
+        sizeAttenuation
       />
-
     </points>
-
   );
-
 }
