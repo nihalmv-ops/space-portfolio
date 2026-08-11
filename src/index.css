@@ -33,7 +33,7 @@ button {
 }
 
 ::selection {
-  background: #7c3aed;
+  background: #feffff;
   color: #fff;
 }
 
@@ -72,18 +72,18 @@ html.lenis {
   font-size: 0.8rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #a78bfa;
+  color: #ffffff;
   margin-bottom: 1.2rem;
 }
 
 .section-title {
-  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-size: clamp(2rem, 5vw, 3.2rem);
   margin-bottom: 1.5rem;
 }
 
 .section-text {
   font-size: 1.05rem;
   line-height: 1.7;
-  color: #b8b8c4;
+  color: #fdfeff;
   max-width: 620px;
 }

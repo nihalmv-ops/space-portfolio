@@ -36,7 +36,7 @@
 }
 
 .projects-subtitle{
-    color:#9ca3af;
+    color:#ffffff;
     max-width:720px;
     line-height:1.8;
     font-size:1rem;
@@ -146,7 +146,9 @@
 
     transition:.4s;
 
+
 }
+
 
 .project-card:hover::before{
 
@@ -160,6 +162,27 @@
 
 100%{background-position:400% 0;}
 
+}
+
+.project-buttons {
+  position: relative;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.project-btn {
+  position: relative;
+  z-index: 21;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.project-card__glow {
+  pointer-events: none;
+}
+
+.project-overlay {
+  pointer-events: none;
 }
 
 /* IMAGE */

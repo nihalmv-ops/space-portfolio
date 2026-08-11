@@ -3,7 +3,7 @@ import "./Skills.css";
 
 import {
   FaReact,
-  FaNodeJs,
+  // FaNodeJs,
   FaHtml5,
   FaCss3Alt,
   FaGitAlt,
@@ -13,8 +13,8 @@ import {
 import {
   SiThreedotjs,
   SiJavascript,
-  SiExpress,
-  SiMongodb,
+  // SiExpress,
+  // SiMongodb,
   SiVite,
   SiGreensock,
   SiTailwindcss,
@@ -24,9 +24,9 @@ const skills = [
   { name: "React", icon: <FaReact /> },
   { name: "Three.js", icon: <SiThreedotjs /> },
   { name: "JavaScript", icon: <SiJavascript /> },
-  { name: "Node.js", icon: <FaNodeJs /> },
-  { name: "Express", icon: <SiExpress /> },
-  { name: "MongoDB", icon: <SiMongodb /> },
+  // { name: "Node.js", icon: <FaNodeJs /> },
+  // { name: "Express", icon: <SiExpress /> },
+  // { name: "MongoDB", icon: <SiMongodb /> },
   { name: "Tailwind", icon: <SiTailwindcss /> },
   { name: "GSAP", icon: <SiGreensock /> },
   { name: "HTML5", icon: <FaHtml5 /> },

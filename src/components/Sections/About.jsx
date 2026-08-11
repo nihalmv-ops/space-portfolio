@@ -9,10 +9,12 @@ export default function About() {
           I turn complex problems into clean, working software.
         </h2>
         <p className="section-text">
-          A few years into building for the web, I care most about the
-          details most people scroll past — the timing of an animation, the
-          weight of a headline, the feel of a page as it loads. This site is
-          built with React, Three.js, and Framer Motion.
+         I build modern, responsive interfaces using React,
+JavaScript, and modern web technologies — with a focus
+on clean code, thoughtful design, and exceptional user
+experiences.<br></br> <br></br>
+
+Always learning. Always building. Always evolving.
         </p>
       </ScrollReveal>
     </section>

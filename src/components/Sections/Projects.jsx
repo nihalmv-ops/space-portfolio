@@ -1,10 +1,10 @@
+
 import ScrollReveal, {
   StaggerContainer,
   StaggerItem,
 } from "../ScrollReveal";
 
 import "./Projects.css";
-
 import ProjectCard from "./ProjectCard";
 import projects from "./project";
 
@@ -24,9 +24,10 @@ export default function Projects() {
         </h2>
 
         <p className="projects-subtitle">
-          A collection of modern full-stack web
-          applications, interactive 3D experiences,
-          and production-ready MERN projects.
+          Explore a selection of projects where I combine
+          React, modern UI, animation, and clean engineering
+          to build digital experiences that are functional,
+          responsive, and memorable.
         </p>
       </ScrollReveal>
 
@@ -42,3 +43,4 @@ export default function Projects() {
     </section>
   );
 }
+

@@ -17,7 +17,7 @@ export default function Navbar() {
       }}
     >
       <a href="#hero" style={{ fontFamily: "Space Grotesk", fontWeight: 600, fontSize: "1.1rem" }}>
-        YOUR NAME
+        NMV
       </a>
       <div style={{ display: "flex", gap: "2.2rem" }}>
         {links.map((link) => (

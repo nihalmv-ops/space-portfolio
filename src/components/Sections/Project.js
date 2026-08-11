@@ -1,92 +1,54 @@
+
 const projects = [
   {
     id: 1,
     title: "Space Portfolio",
     desc: "A cinematic 3D portfolio built with React, Three.js and GSAP featuring scroll-based camera movement, planets, nebula, deep space, realistic lighting and immersive animations.",
-    image: "/projects/space-portfolio.jpg",
+    image: "/projects/techmart.jpg",
     tags: [
-      "React",
-      "Three.js",
-      "R3F",
-      "GSAP",
-      "WebGL"
+      "React.js",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS",
+      "React Router",
+      "Lucide React",
+      "Responsive",
     ],
-    githubLink: "https://github.com/nihalmv-ops/space-portfolio",
-    liveLink: ""
+    githubLink: "https://github.com/nihalmv-ops/trachmartshop",
+    liveLink: "https://trachmartshop.vercel.app/",
   },
 
   {
     id: 2,
     title: "Travel Booking",
     desc: "Responsive travel booking platform with modern UI, booking flow, destination cards, animated sections and clean user experience.",
-    image: "/projects/travel-booking.jpg",
+    image: "/projects/gotravel.jpg",
     tags: [
       "React",
       "JavaScript",
       "CSS",
-      "Responsive"
+      "Responsive",
+      "React Router",
     ],
     githubLink: "https://github.com/nihalmv-ops/rgotravel",
-    liveLink: ""
+    liveLink: "https://rgotravel.vercel.app/",
   },
 
   {
     id: 3,
     title: "Dental Clinic Website",
     desc: "Premium dental clinic landing page with glassmorphism, smooth animations, responsive layout and elegant appointment section.",
-    image: "/projects/dental.jpg",
+    image: "/projects/project3.jpg",
     tags: [
       "HTML",
       "CSS",
-      "JavaScript"
+      "JavaScript",
+      "Responsive",
     ],
-    githubLink: "",
-    liveLink: ""
+    githubLink: "https://github.com/nihalmv-ops/hospital",
+    liveLink: "https://nihalmv-ops.github.io/hospital/",
   },
-
-  {
-    id: 4,
-    title: "E-Commerce Store",
-    desc: "Modern shopping interface featuring animated product cards, responsive layouts, interactive UI and clean shopping experience.",
-    image: "/projects/shop.jpg",
-    tags: [
-      "React",
-      "Node",
-      "MongoDB",
-      "Express"
-    ],
-    githubLink: "",
-    liveLink: ""
-  },
-
-  {
-    id: 5,
-    title: "Authentication System",
-    desc: "Secure authentication system using JWT, login, registration, protected routes and modern dashboard interface.",
-    image: "/projects/auth.jpg",
-    tags: [
-      "JWT",
-      "Express",
-      "MongoDB",
-      "React"
-    ],
-    githubLink: "",
-    liveLink: ""
-  },
-
-  {
-    id: 6,
-    title: "Dashboard UI",
-    desc: "Beautiful analytics dashboard with charts, statistics cards, responsive widgets and dark futuristic interface.",
-    image: "/projects/dashboard.jpg",
-    tags: [
-      "React",
-      "Chart.js",
-      "CSS"
-    ],
-    githubLink: "",
-    liveLink: ""
-  }
 ];
 
 export default projects;
+
