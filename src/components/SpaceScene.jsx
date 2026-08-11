@@ -1,6 +1,11 @@
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import {
+  EffectComposer,
+  Bloom,
+} from "@react-three/postprocessing";
+
+import { useEffect, useRef } from "react";
 
 import NebulaBackground from "./NebulaBackground";
 import StarField from "./StarField";
@@ -17,23 +22,90 @@ import WarpStars from "./WarpStars";
 import CameraShake from "./CameraShake";
 import GalaxyGlow from "./GalaxyGlow";
 
-
 import GoldenSun from "./GoldenSun";
-
 import DeepSpace from "./DeepSpace";
 import SpaceFade from "./SpaceFade";
 
 
+/* =========================================
+   CINEMATIC UNIVERSE TRANSITION
+========================================= */
+
+function UniverseTransition() {
+  const { camera } = useThree();
+
+  const active = useRef(false);
+  const progress = useRef(0);
+
+  useEffect(() => {
+    const start = () => {
+      active.current = true;
+      progress.current = 0;
+    };
+
+    window.addEventListener("universe-start", start);
+
+    return () => {
+      window.removeEventListener("universe-start", start);
+    };
+  }, []);
+
+  useFrame((_, delta) => {
+    if (!active.current) return;
+
+    progress.current += delta;
+
+    const p = Math.min(progress.current / 1.2, 1);
+
+    // Smooth cinematic acceleration
+    const ease = p * p * p;
+
+    // Forward camera movement
+    camera.position.z -= ease * 8;
+
+    // Small cinematic movement
+    camera.position.x +=
+      Math.sin(progress.current * 30) *
+      0.015 *
+      ease;
+
+    camera.position.y +=
+      Math.cos(progress.current * 25) *
+      0.012 *
+      ease;
+
+    // Small cinematic rotation
+    camera.rotation.z =
+      Math.sin(progress.current * 5) *
+      0.003 *
+      ease;
+
+    // Finish transition
+    if (p >= 1) {
+      active.current = false;
+      camera.rotation.z = 0;
+    }
+  });
+
+  return null;
+}
+
+
+/* =========================================
+   SPACE SCENE
+========================================= */
+
 export default function SpaceScene() {
   return (
     <div className="canvas-fixed">
+
       <Canvas
-       camera={{
-  position: [0, 0, -650],
-  fov: 48,
-  near: 0.1,
-  far: 3000,
-}}
+        camera={{
+          position: [0, 0, 10],
+          fov: 48,
+          near: 0.1,
+          far: 8000,
+        }}
         dpr={[1, 2]}
         gl={{
           antialias: true,
@@ -41,71 +113,149 @@ export default function SpaceScene() {
           powerPreference: "high-performance",
         }}
       >
+
+        {/* =================================
+            FOG
+        ================================= */}
+
         <fogExp2
-  attach="fog"
-  args={["#050512", 0.0025]}
-/>
+          attach="fog"
+          args={["#050512", 0.0022]}
+        />
 
-    <ambientLight intensity={0.08} />
 
-<directionalLight
-  position={[40, 30, 25]}
-  intensity={1.8}
-  color="#a78bfa"
-/>
+        {/* =================================
+            LIGHTING
+        ================================= */}
 
-<pointLight
-  position={[90, 40, -420]}
-  intensity={8}
-  color="#ffcc66"
-/>
+        <ambientLight intensity={0.08} />
 
-<pointLight
-  position={[-70, -30, -220]}
-  intensity={0.7}
-  color="#4f8fff"
-/>
+        <directionalLight
+          position={[40, 30, 25]}
+          intensity={1.8}
+          color="#a78bfa"
+        />
+
+        <pointLight
+          position={[90, 40, -420]}
+          intensity={8}
+          distance={1500}
+          color="#ffcc66"
+        />
+
+        <pointLight
+          position={[-70, -30, -220]}
+          intensity={0.7}
+          distance={900}
+          color="#4f8fff"
+        />
+
+
+        {/* =================================
+            ENVIRONMENT
+        ================================= */}
 
         <Environment preset="sunset" />
-          
-       {/* Background */}
-<NebulaBackground />
-<GalaxyGlow />
 
-{/* Far universe */}
-<StarField />
-<WarpStars />
 
-{/* Moving particles */}
-<SpaceParticles />
-<SpaceDust />
-<MeteorField />
-<ShootingStars />
+        {/* =================================
+            BACKGROUND
+        ================================= */}
 
-{/* Objects */}
-<PlanetField />
-<Asteroids />
+        <NebulaBackground />
 
-{/* Camera */}
-<ScrollCamera />
+        <GalaxyGlow />
 
-{/* Ending sequence */}
-<GoldenSun />
-<DeepSpace />
-<SpaceFade />
 
-<CameraShake />
+        {/* =================================
+            FAR UNIVERSE
+        ================================= */}
 
-<EffectComposer>
-  <Bloom
-    intensity={3}
-    luminanceThreshold={0}
-    luminanceSmoothing={0.9}
-  />
-</EffectComposer>
+        <StarField />
+
+        <WarpStars />
+
+
+        {/* =================================
+            SPACE PARTICLES
+        ================================= */}
+
+        <SpaceParticles />
+
+        <SpaceDust />
+
+        <MeteorField />
+
+        <ShootingStars />
+
+
+        {/* =================================
+            SPACE OBJECTS
+        ================================= */}
+
+        <PlanetField />
+
+        <Asteroids />
+
+
+        {/* =================================
+            SCROLL CAMERA
+        ================================= */}
+
+        <ScrollCamera />
+
+
+        {/* =================================
+            CINEMATIC START TRANSITION
+        ================================= */}
+
+        <UniverseTransition />
+
+
+        {/* =================================
+            GOLDEN SUN
+        ================================= */}
+
+        <GoldenSun />
+
+
+        {/* =================================
+            DEEP EMPTY UNIVERSE
+        ================================= */}
+
+        <DeepSpace />
+
+        <SpaceFade />
+
+
+        {/* =================================
+            CAMERA SHAKE
+        ================================= */}
+
+        <CameraShake />
+
+
+        {/* =================================
+            BLOOM
+        ================================= */}
+
+        <EffectComposer>
+          <Bloom
+            intensity={3}
+            luminanceThreshold={0}
+            luminanceSmoothing={0.9}
+          />
+        </EffectComposer>
+
       </Canvas>
 
+
+      {/* =================================
+          AUDIO
+      ================================= */}
+
       <SpaceAudio />
+
     </div>
   );
 }

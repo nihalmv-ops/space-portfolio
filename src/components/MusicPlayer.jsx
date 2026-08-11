@@ -68,7 +68,7 @@ export default function MusicPlayer() {
 
       <button
         onClick={toggle}
-        aria-label={playing ? "Mute Music" : "Play Music"}
+        aria-label={playing ? "Play Music" : " Mute Music"} 
         style={{
           position: "fixed",
           bottom: "28px",

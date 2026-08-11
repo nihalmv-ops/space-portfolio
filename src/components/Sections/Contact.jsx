@@ -16,7 +16,7 @@ export default function Contact() {
             paddingBottom: "0.3rem",
           }}
         >
-          you@example.com
+          nihalmv.dev@gmail.com
         </a>
         <div style={{ display: "flex", gap: "1.5rem", marginTop: "3rem", opacity: 0.75 }}>
           <a href="#">GitHub</a>

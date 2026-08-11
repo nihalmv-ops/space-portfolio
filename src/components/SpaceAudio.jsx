@@ -21,7 +21,7 @@ export default function SpaceAudio() {
       <audio ref={audioRef} loop src="/audio/track.mp3" />
       <button
         onClick={toggle}
-        aria-label={playing ? "Mute music" : "Play music"}
+        aria-label={playing ? "Play music" : "Mute music"}
         style={{
           width: 44, height: 44, borderRadius: "50%",
           background: playing ? "#7c3aed" : "rgba(10,10,16,0.6)",
