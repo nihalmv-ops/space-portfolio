@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Preloader.css";
@@ -8,7 +7,6 @@ export default function Preloader({ onDone }) {
   const [ready, setReady] = useState(false);
   const [started, setStarted] = useState(false);
 
-  // Background music
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -33,7 +31,6 @@ export default function Preloader({ onDone }) {
   }, []);
 
   const handleStart = () => {
-    // Start background music from the user's click
     if (!audioRef.current) {
       audioRef.current = new Audio("/audio/background.mp3");
 
@@ -42,13 +39,10 @@ export default function Preloader({ onDone }) {
       audioRef.current.preload = "auto";
     }
 
-    audioRef.current
-      .play()
-      .catch((error) => {
-        console.log("Audio could not start:", error);
-      });
+    audioRef.current.play().catch((error) => {
+      console.log("Audio could not start:", error);
+    });
 
-    // Start cinematic transition
     setStarted(true);
 
     setTimeout(() => {
@@ -67,36 +61,26 @@ export default function Preloader({ onDone }) {
             scale: 1.08,
             filter: "blur(18px)",
           }}
-          transition={{ duration: 1.2, ease: "easeInOut" }}
+          transition={{
+            duration: 1.2,
+            ease: "easeInOut",
+          }}
         >
-          {/* Deep space background */}
-          <div className="loader-space" />
+          {/* =================================
+              SPACE IMAGE
+          ================================= */}
 
-          {/* Nebula layers */}
-          <div className="loader-nebula nebula-one" />
-          <div className="loader-nebula nebula-two" />
+          <div className="loader-space-image" />
 
-          {/* Stars */}
-          <div className="loader-stars">
-            {Array.from({ length: 90 }).map((_, i) => (
-              <span
-                key={i}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 4}s`,
-                  animationDuration: `${2 + Math.random() * 4}s`,
-                }}
-              />
-            ))}
-          </div>
+          {/* Dark cinematic overlay */}
+          <div className="loader-dark-overlay" />
 
-          {/* Golden cinematic light */}
+          {/* Purple atmospheric glow */}
           <motion.div
-            className="loader-sun-glow"
+            className="loader-purple-glow"
             animate={{
-              scale: ready ? 1.25 : 0.75,
-              opacity: ready ? 0.8 : 0.18,
+              opacity: ready ? 0.65 : 0.35,
+              scale: ready ? 1.15 : 1,
             }}
             transition={{
               duration: 2,
@@ -104,49 +88,139 @@ export default function Preloader({ onDone }) {
             }}
           />
 
-          {/* Center content */}
+          {/* Golden sun glow */}
+          <motion.div
+            className="loader-sun-glow"
+            animate={{
+              opacity: ready ? 0.85 : 0.35,
+              scale: ready ? 1.2 : 0.85,
+            }}
+            transition={{
+              duration: 2.5,
+              ease: "easeOut",
+            }}
+          />
+
+          {/* =================================
+              STARS
+          ================================= */}
+
+          <div className="loader-stars">
+            {Array.from({ length: 70 }).map((_, i) => (
+              <span
+                key={i}
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${2 + Math.random() * 4}s`,
+                }}
+              />
+            ))}
+          </div>
+
+          {/* =================================
+              MAIN CONTENT
+          ================================= */}
+
           <motion.div
             className="loader-content"
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2 }}
+            initial={{
+              opacity: 0,
+              y: 35,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 1.2,
+              ease: "easeOut",
+            }}
           >
-            <motion.div
-              className="loader-small-text"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              WELCOME TO
-            </motion.div>
-
-            <motion.h1
-              animate={{
-                textShadow: [
-                  "0 0 10px rgba(255,255,255,0.1)",
-                  "0 0 35px rgba(255,255,255,0.35)",
-                  "0 0 10px rgba(255,255,255,0.1)",
-                ],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-              }}
-            >
-              NMV
-            </motion.h1>
+            {/* Small intro */}
 
             <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8 }}
+              className="hero-eyebrow"
+              initial={{
+                opacity: 0,
+                x: -20,
+              }}
+              animate={{
+                opacity: 1,
+                x: 0,
+              }}
+              transition={{
+                delay: 0.3,
+                duration: 0.8,
+              }}
             >
-              REACT DEVELOPER
+              HELLO, I'M
             </motion.p>
 
-            {/* Loading */}
+            {/* Name */}
+
+            <motion.h1
+              className="hero-title"
+              initial={{
+                opacity: 0,
+                y: 25,
+                filter: "blur(12px)",
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                filter: "blur(0px)",
+              }}
+              transition={{
+                delay: 0.45,
+                duration: 1,
+              }}
+            >
+              NIHAL <span>MV</span>
+            </motion.h1>
+
+            {/* Description */}
+
+            <motion.p
+              className="hero-description"
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                delay: 0.7,
+                duration: 0.9,
+              }}
+            >
+              I build immersive web experiences with
+              modern technologies, creative design and
+              interactive 3D experiences.
+            </motion.p>
+
+            {/* =================================
+                LOADING
+            ================================= */}
+
             {!ready && (
-              <div className="loader-progress-wrapper">
+              <motion.div
+                className="loader-progress-wrapper"
+                initial={{
+                  opacity: 0,
+                  y: 15,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  delay: 0.9,
+                }}
+              >
                 <div className="loader-percent">
                   {Math.floor(progress)}
                   <span>%</span>
@@ -168,16 +242,19 @@ export default function Preloader({ onDone }) {
                 <div className="loader-status">
                   INITIALIZING UNIVERSE
                 </div>
-              </div>
+              </motion.div>
             )}
 
-            {/* Get started */}
+            {/* =================================
+                ENTER BUTTON
+            ================================= */}
+
             {ready && (
               <motion.div
                 className="start-wrapper"
                 initial={{
                   opacity: 0,
-                  y: 20,
+                  y: 25,
                   scale: 0.9,
                 }}
                 animate={{
@@ -186,7 +263,7 @@ export default function Preloader({ onDone }) {
                   scale: 1,
                 }}
                 transition={{
-                  duration: 0.8,
+                  duration: 0.9,
                   ease: "easeOut",
                 }}
               >
@@ -214,20 +291,29 @@ export default function Preloader({ onDone }) {
             )}
           </motion.div>
 
-          {/* Bottom cinematic text */}
+          {/* =================================
+              BOTTOM
+          ================================= */}
+
           <div className="loader-bottom">
             <span>SCROLL • EXPLORE • CREATE</span>
-            <span>© 2026 NMV</span>
+            <span>© 2026 NIHAL MV</span>
           </div>
 
-          {/* Transition flash */}
+          {/* =================================
+              CINEMATIC FLASH
+          ================================= */}
+
           {started && (
             <motion.div
               className="loader-flash"
-              initial={{ opacity: 0 }}
+              initial={{
+                opacity: 0,
+                scale: 0.5,
+              }}
               animate={{
-                opacity: [0, 0.8, 0],
-                scale: [0.5, 1.4, 2],
+                opacity: [0, 0.9, 0],
+                scale: [0.5, 1.5, 2.2],
               }}
               transition={{
                 duration: 1.2,
@@ -240,4 +326,3 @@ export default function Preloader({ onDone }) {
     </AnimatePresence>
   );
 }
-

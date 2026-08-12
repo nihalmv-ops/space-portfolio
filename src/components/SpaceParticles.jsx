@@ -42,7 +42,7 @@ export default function SpaceParticles() {
 
       <pointsMaterial
         size={0.8}
-        color="#cfd8ff"
+        color="#dbe0fa"
         transparent
         opacity={0.45}
         depthWrite={false}
