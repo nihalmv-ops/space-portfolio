@@ -1,0 +1,75 @@
+.mouse-glow {
+  position: fixed;
+
+  width: 360px;
+  height: 360px;
+
+  left: 0;
+  top: 0;
+
+  pointer-events: none;
+
+  z-index: 5;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(168, 85, 247, 0.16) 0%,
+      rgba(124, 58, 237, 0.10) 25%,
+      rgba(99, 102, 241, 0.05) 45%,
+      transparent 72%
+    );
+
+  filter: blur(8px);
+
+  will-change: transform;
+
+  mix-blend-mode: screen;
+
+  transition: opacity 0.3s ease;
+}
+
+/* Very subtle inner light */
+
+.mouse-glow::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 90px;
+  height: 90px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.10),
+    rgba(167, 139, 250, 0.05) 35%,
+    transparent 70%
+  );
+
+  filter: blur(4px);
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .mouse-glow {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  .mouse-glow {
+    display: none;
+  }
+}

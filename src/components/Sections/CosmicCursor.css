@@ -1,0 +1,30 @@
+.mouse-3d-cursor {
+  position: fixed;
+
+  width: 70px;
+  height: 70px;
+
+  left: 0;
+  top: 0;
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+
+  z-index: 99999;
+
+  mix-blend-mode: screen;
+}
+
+.mouse-3d-cursor canvas {
+  display: block;
+
+  width: 70px !important;
+  height: 70px !important;
+}
+
+@media (max-width: 768px) {
+  .mouse-3d-cursor {
+    display: none;
+  }
+}

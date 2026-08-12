@@ -20,6 +20,24 @@ const projects = [
 
   {
     id: 2,
+    title: "TechNest — E-Commerce Store",
+    desc: "A modern, responsive e-commerce experience for laptops and mobile devices, featuring a clean UI, smooth interactions, and intuitive product browsing.",
+    image: "/projects/techmart.jpg",
+    tags: [
+      "React.js",
+      "JavaScript",
+      "Vite",
+      "Tailwind CSS",
+      "React Router",
+      "Lucide React",
+      "Responsive",
+    ],
+    githubLink: "https://github.com/nihalmv-ops/trachmartshop",
+    liveLink: "https://trachmartshop.vercel.app/",
+  },
+
+  {
+    id: 3,
     title: "Travel Booking",
     desc: "Responsive travel booking platform with modern UI, booking flow, destination cards, animated sections and clean user experience.",
     image: "/projects/gotravel.jpg",
@@ -35,7 +53,22 @@ const projects = [
   },
 
   {
-    id: 3,
+    id: 4,
+    title: "Dental Clinic Website",
+    desc: "Premium dental clinic landing page with glassmorphism, smooth animations, responsive layout and elegant appointment section.",
+    image: "/projects/project3.jpg",
+    tags: [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Responsive",
+    ],
+    githubLink: "https://github.com/nihalmv-ops/hospital",
+    liveLink: "https://nihalmv-ops.github.io/hospital/",
+  },
+  
+  {
+    id: 5,
     title: "Dental Clinic Website",
     desc: "Premium dental clinic landing page with glassmorphism, smooth animations, responsive layout and elegant appointment section.",
     image: "/projects/project3.jpg",
