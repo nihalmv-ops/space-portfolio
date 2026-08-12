@@ -4,7 +4,7 @@ const projects = [
     id: 1,
     title: "Space Portfolio",
     desc: "A cinematic 3D portfolio built with React, Three.js and GSAP featuring scroll-based camera movement, planets, nebula, deep space, realistic lighting and immersive animations.",
-    image: "/projects/techmart.jpg",
+    image: "/projects/ni.jpg",
     tags: [
       "React.js",
       "JavaScript",

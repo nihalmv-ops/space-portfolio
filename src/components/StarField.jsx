@@ -5,23 +5,20 @@ import * as THREE from "three";
 export default function StarField() {
   const pointsRef = useRef();
 
-  const { positions, colors, sizes } = useMemo(() => {
-    const COUNT = 100000;
+  const { positions, colors } = useMemo(() => {
+    const COUNT = 50;
 
     const positions = new Float32Array(COUNT * 3);
     const colors = new Float32Array(COUNT * 3);
-    const sizes = new Float32Array(COUNT);
 
     const palette = [
       new THREE.Color("#ffffff"),
-      new THREE.Color("#e6dbdb"),
-      new THREE.Color("#ece6e6"),
-      new THREE.Color("#fde68a"),
-      new THREE.Color("#f2f2f2"),
+      new THREE.Color("#eeeeee"),
+      new THREE.Color("#f5f5f5"),
     ];
 
     for (let i = 0; i < COUNT; i++) {
-      const radius = 250 + Math.random() * 900;
+      const radius = 300 + Math.random() * 1000;
 
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(2 * Math.random() - 1);
@@ -41,14 +38,11 @@ export default function StarField() {
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
-
-      sizes[i] = Math.random() * 2 + 0.5;
     }
 
     return {
       positions,
       colors,
-      sizes,
     };
   }, []);
 
@@ -56,10 +50,10 @@ export default function StarField() {
     if (!pointsRef.current) return;
 
     pointsRef.current.rotation.y =
-      state.clock.elapsedTime * 0.002;
+      state.clock.elapsedTime * 0.0005;
 
     pointsRef.current.rotation.x =
-      Math.sin(state.clock.elapsedTime * 0.05) * 0.02;
+      Math.sin(state.clock.elapsedTime * 0.03) * 0.01;
   });
 
   return (
@@ -81,13 +75,12 @@ export default function StarField() {
       </bufferGeometry>
 
       <pointsMaterial
-        size={1.2}
+        size={0.7}
         sizeAttenuation
         transparent
-        opacity={1}
+        opacity={0.7}
         depthWrite={false}
         vertexColors
-        blending={THREE.AdditiveBlending}
       />
     </points>
   );

@@ -5,16 +5,20 @@ export default function DeepSpace() {
   const stars = useRef();
 
   const positions = useMemo(() => {
-    const count = 900;
+    const count = 100;
     const array = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-      // Spread stars over a huge area
-      array[i * 3] = (Math.random() - 0.5) * 6000;
-      array[i * 3 + 1] = (Math.random() - 0.5) * 6000;
+      // Very wide empty universe
+      array[i * 3] =
+        (Math.random() - 0.5) * 7000;
 
-      // Very far behind the Sun
-      array[i * 3 + 2] = -800 - Math.random() * 6000;
+      array[i * 3 + 1] =
+        (Math.random() - 0.5) * 7000;
+
+      // Very deep distance
+      array[i * 3 + 2] =
+        -1000 - Math.random() * 7000;
     }
 
     return array;
@@ -23,8 +27,9 @@ export default function DeepSpace() {
   useFrame((state) => {
     if (!stars.current) return;
 
-    // Very slow rotation
-    stars.current.rotation.y = state.clock.elapsedTime * 0.0003;
+    // Extremely slow movement
+    stars.current.rotation.y =
+      state.clock.elapsedTime * 0.0001;
   });
 
   return (
@@ -32,17 +37,17 @@ export default function DeepSpace() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
-          array={positions}
           count={positions.length / 3}
+          array={positions}
           itemSize={3}
         />
       </bufferGeometry>
 
       <pointsMaterial
         color="#ffffff"
-        size={0.18}
+        size={0.10}
         transparent
-        opacity={0.95}
+        opacity={0.55}
         depthWrite={false}
         sizeAttenuation
       />

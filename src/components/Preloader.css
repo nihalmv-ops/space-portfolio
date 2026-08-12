@@ -1,641 +1,528 @@
-/* =========================================
-   PREMIUM SPACE PRELOADER
-========================================= */
+/* =================================
+   PROFESSIONAL LOADER
+================================= */
 
-.premium-loader {
-    position: fixed;
-    inset: 0;
+.professional-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
 
-    width: 100vw;
-    height: 100vh;
+  background: #050507;
 
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    z-index: 99999;
+  color: #fff;
 
-    background: #000;
+  overflow: hidden;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.loader-center {
+  width: min(420px, 80vw);
+  text-align: center;
+}
 
-    isolation: isolate;
+.loader-logo {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 8px;
+  margin-bottom: 45px;
+}
+
+.loader-loading-text {
+  font-size: 0.65rem;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 15px;
+}
+
+.loader-progress {
+  width: 100%;
+  height: 2px;
+
+  background: rgba(255,255,255,0.12);
+
+  overflow: hidden;
+}
+
+.loader-progress-bar {
+  height: 100%;
+  width: 0%;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 15px rgba(255,255,255,0.8);
+}
+
+.loader-bottom-row {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 12px;
+
+  font-size: 0.62rem;
+  letter-spacing: 2px;
+
+  color: rgba(255,255,255,0.35);
+}
+
+.loader-bottom-row small {
+  font-size: 0.55rem;
+  margin-left: 2px;
+}
+
+.loader-corner {
+  position: absolute;
+
+  bottom: 25px;
+  left: 30px;
+
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+
+  color: rgba(255,255,255,0.25);
 }
 
 
-/* =========================================
+/* =================================
+   INTRO SPACE SCREEN
+================================= */
+
+.intro-screen {
+  position: fixed;
+  inset: 0;
+
+  z-index: 99998;
+
+  overflow: hidden;
+
+  background: #000;
+
+  color: #fff;
+}
+
+
+/* =================================
    SPACE IMAGE
-========================================= */
+================================= */
 
-.loader-space-image {
-    position: absolute;
-    inset: 0;
+.intro-background {
+  position: absolute;
+  inset: 0;
 
-    background-image: url("/images/hero-space.png");
-
-    background-size: cover;
-    background-position: center;
-
-    transform: scale(1.05);
-
-    z-index: -5;
-
-    animation:
-        spaceZoom 18s ease-in-out infinite alternate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.intro-background img {
+  width: 100%;
+  height: 100%;
 
-/* =========================================
-   CINEMATIC DARK OVERLAY
-========================================= */
+  object-fit: cover;
 
-.loader-dark-overlay {
-    position: absolute;
-    inset: 0;
+  object-position: center;
 
-    background:
+  transform: scale(1.03);
 
-        radial-gradient(
-            circle at 70% 45%,
-            rgba(255, 180, 60, 0.12),
-            transparent 30%
-        ),
-
-        radial-gradient(
-            circle at 30% 40%,
-            rgba(124, 58, 237, 0.2),
-            transparent 40%
-        ),
-
-        linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 0.88),
-            rgba(0, 0, 0, 0.55),
-            rgba(0, 0, 0, 0.3)
-        );
-
-    z-index: -4;
+  animation: spaceZoom 18s ease-out forwards;
 }
-
-
-/* =========================================
-   PURPLE ATMOSPHERE
-========================================= */
-
-.loader-purple-glow {
-    position: absolute;
-
-    width: 650px;
-    height: 650px;
-
-    left: -250px;
-    top: 10%;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(124, 58, 237, 0.28),
-            transparent 70%
-        );
-
-    filter: blur(40px);
-
-    pointer-events: none;
-
-    z-index: -3;
-}
-
-
-/* =========================================
-   GOLDEN SUN LIGHT
-========================================= */
-
-.loader-sun-glow {
-    position: absolute;
-
-    width: 600px;
-    height: 600px;
-
-    right: -180px;
-    top: 15%;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255, 190, 70, 0.28),
-            rgba(255, 145, 0, 0.08) 35%,
-            transparent 70%
-        );
-
-    filter: blur(30px);
-
-    pointer-events: none;
-
-    z-index: -2;
-}
-
-
-/* =========================================
-   STARS
-========================================= */
-
-.loader-stars {
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: -1;
-}
-
-.loader-stars span {
-    position: absolute;
-
-    width: 2px;
-    height: 2px;
-
-    border-radius: 50%;
-
-    background: #fff;
-
-    opacity: 0.35;
-
-    box-shadow:
-        0 0 5px rgba(255,255,255,.7);
-
-    animation:
-        starTwinkle infinite ease-in-out;
-}
-
-
-/* =========================================
-   CONTENT
-========================================= */
-
-.loader-content {
-    position: relative;
-
-    width: min(720px, 90vw);
-
-    margin-left: -28vw;
-
-    z-index: 10;
-}
-
-
-/* =========================================
-   EYEBROW
-========================================= */
-
-.hero-eyebrow {
-    margin: 0 0 18px;
-
-    color: #c4b5fd;
-
-    font-size: 0.8rem;
-
-    font-weight: 600;
-
-    letter-spacing: 6px;
-
-    text-transform: uppercase;
-
-    text-shadow:
-        0 0 15px rgba(167,139,250,.45);
-}
-
-
-/* =========================================
-   TITLE
-========================================= */
-
-.hero-title {
-    margin: 0;
-
-    color: #fff;
-
-    font-size: clamp(
-        4rem,
-        8vw,
-        7.5rem
-    );
-
-    line-height: 0.95;
-
-    font-weight: 800;
-
-    letter-spacing: -4px;
-
-    text-shadow:
-        0 0 30px rgba(255,255,255,.15),
-        0 0 80px rgba(124,58,237,.2);
-}
-
-.hero-title span {
-    background:
-        linear-gradient(
-            90deg,
-            #ffffff,
-            #c4b5fd,
-            #8b5cf6,
-            #ffffff
-        );
-
-    background-size: 200% auto;
-
-    -webkit-background-clip: text;
-    background-clip: text;
-
-    -webkit-text-fill-color: transparent;
-
-    animation:
-        titleGradient 5s linear infinite;
-}
-
-
-/* =========================================
-   DESCRIPTION
-========================================= */
-
-.hero-description {
-    max-width: 560px;
-
-    margin: 28px 0 0;
-
-    color: rgba(255,255,255,.72);
-
-    font-size: 1.05rem;
-
-    line-height: 1.8;
-
-    letter-spacing: .2px;
-}
-
-
-/* =========================================
-   LOADING
-========================================= */
-
-.loader-progress-wrapper {
-    width: min(390px, 80vw);
-
-    margin-top: 42px;
-}
-
-.loader-percent {
-    color: #fff;
-
-    font-size: 1.8rem;
-
-    font-weight: 600;
-
-    margin-bottom: 12px;
-}
-
-.loader-percent span {
-    color: #a78bfa;
-
-    font-size: .9rem;
-
-    margin-left: 3px;
-}
-
-
-/* =========================================
-   PROGRESS BAR
-========================================= */
-
-.loader-line {
-    width: 100%;
-
-    height: 3px;
-
-    overflow: hidden;
-
-    border-radius: 999px;
-
-    background:
-        rgba(255,255,255,.12);
-
-    box-shadow:
-        inset 0 0 10px rgba(0,0,0,.5);
-}
-
-.loader-line-progress {
-    height: 100%;
-
-    border-radius: inherit;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6d28d9,
-            #8b5cf6,
-            #c4b5fd,
-            #fbbf24
-        );
-
-    box-shadow:
-        0 0 15px rgba(139,92,246,.8),
-        0 0 30px rgba(251,191,36,.35);
-}
-
-
-/* =========================================
-   STATUS
-========================================= */
-
-.loader-status {
-    margin-top: 12px;
-
-    color: rgba(255,255,255,.4);
-
-    font-size: .65rem;
-
-    letter-spacing: 3px;
-}
-
-
-/* =========================================
-   START BUTTON
-========================================= */
-
-.start-wrapper {
-    margin-top: 42px;
-}
-
-.start-button {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 22px;
-
-    min-width: 260px;
-
-    padding: 15px 22px;
-
-    border-radius: 999px;
-
-    border: 1px solid
-        rgba(196,181,253,.45);
-
-    color: #fff;
-
-    background:
-        linear-gradient(
-            110deg,
-            rgba(76,29,149,.65),
-            rgba(124,58,237,.35),
-            rgba(255,255,255,.08)
-        );
-
-    backdrop-filter: blur(18px);
-
-    box-shadow:
-        0 0 25px rgba(124,58,237,.25),
-        inset 0 0 20px rgba(255,255,255,.05);
-
-    cursor: pointer;
-
-    font-size: .85rem;
-
-    font-weight: 600;
-
-    letter-spacing: 1.5px;
-
-    overflow: hidden;
-
-    transition: .35s;
-}
-
-.start-button::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: -120%;
-
-    width: 70%;
-    height: 100%;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.3),
-            transparent
-        );
-
-    transform: skewX(-20deg);
-
-    transition: .7s;
-}
-
-.start-button:hover::before {
-    left: 140%;
-}
-
-.start-button:hover {
-    border-color: #c4b5fd;
-
-    box-shadow:
-        0 0 35px rgba(124,58,237,.5),
-        0 0 80px rgba(124,58,237,.2);
-}
-
-.button-arrow {
-    font-size: 1.3rem;
-
-    color: #fbbf24;
-
-    text-shadow:
-        0 0 12px rgba(251,191,36,.8);
-}
-
-
-/* =========================================
-   HINT
-========================================= */
-
-.start-hint {
-    margin-top: 15px;
-
-    color: rgba(255,255,255,.4);
-
-    font-size: .6rem;
-
-    letter-spacing: 3px;
-}
-
-
-/* =========================================
-   BOTTOM
-========================================= */
-
-.loader-bottom {
-    position: absolute;
-
-    left: 35px;
-    right: 35px;
-    bottom: 28px;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    color: rgba(255,255,255,.35);
-
-    font-size: .6rem;
-
-    letter-spacing: 2px;
-}
-
-
-/* =========================================
-   FLASH
-========================================= */
-
-.loader-flash {
-    position: absolute;
-
-    width: 500px;
-    height: 500px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.95),
-            rgba(196,181,253,.35),
-            transparent 70%
-        );
-
-    filter: blur(15px);
-
-    pointer-events: none;
-}
-
-
-/* =========================================
-   ANIMATIONS
-========================================= */
 
 @keyframes spaceZoom {
 
-    0% {
-        transform:
-            scale(1.05)
-            translate3d(0,0,0);
-    }
+  from {
+    transform: scale(1.08);
+  }
 
-    100% {
-        transform:
-            scale(1.12)
-            translate3d(-1%, -1%, 0);
-    }
-}
+  to {
+    transform: scale(1);
+  }
 
-@keyframes starTwinkle {
-
-    0%,
-    100% {
-        opacity: .15;
-        transform: scale(.7);
-    }
-
-    50% {
-        opacity: .9;
-        transform: scale(1.5);
-    }
-}
-
-@keyframes titleGradient {
-
-    0% {
-        background-position: 0% center;
-    }
-
-    100% {
-        background-position: 200% center;
-    }
 }
 
 
-/* =========================================
-   MOBILE
-========================================= */
+/* =================================
+   CINEMATIC OVERLAY
+================================= */
+
+.intro-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,0.82) 0%,
+      rgba(0,0,0,0.52) 38%,
+      rgba(0,0,0,0.12) 75%,
+      rgba(0,0,0,0.35) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* Bottom darkness */
+
+.intro-screen::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      transparent 55%,
+      rgba(0,0,0,0.75) 100%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =================================
+   GOLD / PURPLE SPACE GLOW
+================================= */
+
+.intro-glow {
+  position: absolute;
+
+  width: 500px;
+  height: 500px;
+
+  left: 42%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(167,139,250,0.13),
+      transparent 70%
+    );
+
+  filter: blur(20px);
+
+  pointer-events: none;
+}
+
+
+/* =================================
+   INTRO CONTENT
+================================= */
+
+.intro-content {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(620px, 90vw);
+
+  margin-left: clamp(40px, 10vw, 150px);
+
+  padding-top: 22vh;
+}
+
+
+/* =================================
+   EYEBROW
+================================= */
+
+.hero-eyebrow {
+  margin: 0 0 15px;
+
+  color: #c4b5fd;
+
+  font-size: 0.78rem;
+
+  font-weight: 600;
+
+  letter-spacing: 5px;
+}
+
+
+/* =================================
+   TITLE
+================================= */
+
+.hero-title {
+  margin: 0;
+
+  font-size: clamp(4rem, 9vw, 8rem);
+
+  line-height: 0.95;
+
+  font-weight: 800;
+
+  letter-spacing: -5px;
+
+  color: #fff;
+
+  text-shadow:
+    0 0 30px rgba(255,255,255,0.08);
+}
+
+.hero-title span {
+  color: #a78bfa;
+
+  text-shadow:
+    0 0 25px rgba(167,139,250,0.55);
+}
+
+
+/* =================================
+   DESCRIPTION
+================================= */
+
+.hero-description {
+  max-width: 540px;
+
+  margin: 28px 0 32px;
+
+  color: rgba(255,255,255,0.68);
+
+  font-size: 1rem;
+
+  line-height: 1.8;
+}
+
+
+/* =================================
+   ENTER BUTTON
+================================= */
+
+.hero-button {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 15px 25px;
+
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,0.25);
+
+  background:
+    rgba(255,255,255,0.07);
+
+  backdrop-filter: blur(15px);
+
+  color: #fff;
+
+  font-size: 0.82rem;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  overflow: hidden;
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+.hero-button::before {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      110deg,
+      transparent 20%,
+      rgba(255,255,255,0.25) 50%,
+      transparent 80%
+    );
+
+  transform: translateX(-120%);
+
+  transition: transform 0.7s ease;
+}
+
+.hero-button:hover::before {
+  transform: translateX(120%);
+}
+
+.hero-button:hover {
+  border-color: rgba(167,139,250,0.8);
+
+  background:
+    rgba(124,58,237,0.18);
+
+  box-shadow:
+    0 0 25px rgba(124,58,237,0.25),
+    0 0 60px rgba(124,58,237,0.12);
+}
+
+.hero-button-arrow {
+  font-size: 1.1rem;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.hero-button:hover .hero-button-arrow {
+  transform: translateX(5px);
+}
+
+
+/* =================================
+   FOOTER
+================================= */
+
+.intro-footer {
+  position: absolute;
+
+  z-index: 5;
+
+  bottom: 28px;
+
+  left: 40px;
+  right: 40px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  font-size: 0.55rem;
+
+  letter-spacing: 3px;
+
+  color: rgba(255,255,255,0.5);
+}
+
+
+/* =================================
+   ENTER FLASH
+================================= */
+
+.enter-transition {
+  position: absolute;
+
+  z-index: 100;
+
+  width: 100vw;
+  height: 100vw;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,0.95) 0%,
+      rgba(167,139,250,0.5) 20%,
+      rgba(0,0,0,0) 70%
+    );
+
+  pointer-events: none;
+}
+
+
+/* =================================
+   TABLET
+================================= */
 
 @media (max-width: 768px) {
 
-    .loader-space-image {
-        background-position: 60% center;
-    }
+  .intro-background img {
+    object-position: 65% center;
+  }
 
-    .loader-dark-overlay {
-        background:
-            linear-gradient(
-                90deg,
-                rgba(0,0,0,.88),
-                rgba(0,0,0,.55)
-            );
-    }
+  .intro-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0,0,0,0.82),
+        rgba(0,0,0,0.42)
+      );
+  }
 
-    .loader-content {
-        width: calc(100% - 48px);
+  .intro-content {
+    margin-left: 28px;
+    padding-top: 30vh;
+    width: calc(100% - 56px);
+  }
 
-        margin-left: 0;
+  .hero-title {
+    font-size: clamp(3.5rem, 15vw, 6rem);
+    letter-spacing: -3px;
+  }
 
-        text-align: center;
-    }
+  .hero-description {
+    font-size: 0.9rem;
+  }
 
-    .hero-title {
-        font-size: clamp(
-            3.5rem,
-            16vw,
-            6rem
-        );
+  .intro-footer {
+    left: 25px;
+    right: 25px;
+  }
+}
 
-        letter-spacing: -3px;
-    }
 
-    .hero-description {
-        margin-left: auto;
-        margin-right: auto;
+/* =================================
+   MOBILE
+================================= */
 
-        font-size: .92rem;
-    }
+@media (max-width: 480px) {
 
-    .loader-progress-wrapper {
-        margin-left: auto;
-        margin-right: auto;
+  .loader-center {
+    width: 75vw;
+  }
 
-        text-align: left;
-    }
+  .loader-logo {
+    font-size: 1.5rem;
+  }
 
-    .start-wrapper {
-        display: flex;
+  .intro-background img {
+    object-position: 68% center;
+  }
 
-        flex-direction: column;
+  .intro-content {
+    margin-left: 22px;
+    padding-top: 25vh;
+  }
 
-        align-items: center;
-    }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+  }
 
-    .loader-bottom {
-        left: 20px;
-        right: 20px;
+  .hero-title {
+    font-size: 4rem;
+  }
 
-        bottom: 18px;
+  .hero-description {
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
 
-        font-size: .5rem;
-    }
+  .hero-button {
+    padding: 13px 20px;
+    font-size: 0.72rem;
+  }
+
+  .intro-footer {
+    left: 20px;
+    right: 20px;
+
+    font-size: 0.45rem;
+  }
 }

@@ -6,7 +6,7 @@ export default function SpaceParticles() {
   const points = useRef();
 
   const particles = useMemo(() => {
-    const count = 12000;
+    const count = 12;
 
     const positions = new Float32Array(count * 3);
 

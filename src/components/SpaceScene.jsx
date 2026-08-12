@@ -60,7 +60,7 @@ function UniverseTransition() {
     // Smooth cinematic acceleration
     const ease = p * p * p;
 
-    // Forward camera movement
+    // Forward movement
     camera.position.z -= ease * 8;
 
     // Small cinematic movement
@@ -74,13 +74,12 @@ function UniverseTransition() {
       0.012 *
       ease;
 
-    // Small cinematic rotation
+    // Small rotation
     camera.rotation.z =
       Math.sin(progress.current * 5) *
       0.003 *
       ease;
 
-    // Finish transition
     if (p >= 1) {
       active.current = false;
       camera.rotation.z = 0;
@@ -115,37 +114,44 @@ export default function SpaceScene() {
       >
 
         {/* =================================
-            FOG
+            DARK UNIVERSE BACKGROUND
         ================================= */}
+
+        <color
+          attach="background"
+          args={["#020204"]}
+        />
 
         <fogExp2
           attach="fog"
-          args={["#050512", 0.0022]}
+          args={["#020204", 0.0018]}
         />
 
 
         {/* =================================
-            LIGHTING
+            VERY SUBTLE LIGHTING
         ================================= */}
 
-        <ambientLight intensity={0.08} />
+        <ambientLight intensity={0.025} />
 
         <directionalLight
           position={[40, 30, 25]}
-          intensity={1.8}
-          color="#a78bfa"
+          intensity={0.45}
+          color="#7c6ac7"
         />
 
+        {/* Distant golden light for Sun */}
         <pointLight
           position={[90, 40, -420]}
-          intensity={8}
+          intensity={5}
           distance={1500}
           color="#ffcc66"
         />
 
+        {/* Very subtle blue fill */}
         <pointLight
           position={[-70, -30, -220]}
-          intensity={0.7}
+          intensity={0.25}
           distance={900}
           color="#4f8fff"
         />
@@ -155,11 +161,11 @@ export default function SpaceScene() {
             ENVIRONMENT
         ================================= */}
 
-        <Environment preset="sunset" />
+        <Environment preset="night" />
 
 
         {/* =================================
-            BACKGROUND
+            DARK NEBULA
         ================================= */}
 
         <NebulaBackground />
@@ -168,7 +174,7 @@ export default function SpaceScene() {
 
 
         {/* =================================
-            FAR UNIVERSE
+            DISTANT STARS
         ================================= */}
 
         <StarField />
@@ -190,7 +196,7 @@ export default function SpaceScene() {
 
 
         {/* =================================
-            SPACE OBJECTS
+            PLANETS + ASTEROIDS
         ================================= */}
 
         <PlanetField />
@@ -206,7 +212,7 @@ export default function SpaceScene() {
 
 
         {/* =================================
-            CINEMATIC START TRANSITION
+            START TRANSITION
         ================================= */}
 
         <UniverseTransition />
@@ -229,21 +235,21 @@ export default function SpaceScene() {
 
 
         {/* =================================
-            CAMERA SHAKE
+            VERY SUBTLE CAMERA SHAKE
         ================================= */}
 
         <CameraShake />
 
 
         {/* =================================
-            BLOOM
+            CINEMATIC BLOOM
         ================================= */}
 
         <EffectComposer>
           <Bloom
-            intensity={3}
-            luminanceThreshold={0}
-            luminanceSmoothing={0.9}
+            intensity={1.8}
+            luminanceThreshold={0.35}
+            luminanceSmoothing={0.85}
           />
         </EffectComposer>
 
