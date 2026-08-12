@@ -33,8 +33,8 @@ function App() {
             <main className="content">
               <Hero />
               <About />
-              <Projects />
               <Skills />
+            <Projects />
               <Contact />
             </main>
           </SmoothScroll>

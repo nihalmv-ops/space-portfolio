@@ -14,10 +14,10 @@ export default function StarField() {
 
     const palette = [
       new THREE.Color("#ffffff"),
-      new THREE.Color("#dbeafe"),
-      new THREE.Color("#93c5fd"),
+      new THREE.Color("#000000"),
+      new THREE.Color("#000000"),
       new THREE.Color("#fde68a"),
-      new THREE.Color("#f8fafc"),
+      new THREE.Color("#000204"),
     ];
 
     for (let i = 0; i < COUNT; i++) {

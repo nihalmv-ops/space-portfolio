@@ -28,7 +28,7 @@ export default function WarpStars() {
       {stars.map((s, i) => (
         <mesh key={i} position={[s.x, s.y, s.z]}>
           <sphereGeometry args={[0.08, 6, 6]} />
-          <meshBasicMaterial color="#ffffff" />
+          <meshBasicMaterial color="#827e94" />
         </mesh>
       ))}
     </group>

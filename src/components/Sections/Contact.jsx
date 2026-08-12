@@ -1,14 +1,10 @@
-
 import ScrollReveal from "../ScrollReveal";
+import { FaGithub, FaLinkedinIn, FaDownload,  FaInstagram,} from "react-icons/fa";
 import "./Contact.css";
 
 export default function Contact() {
   return (
-    <section
-      id="contact"
-      className="section contact-section"
-      style={{ minHeight: "80vh" }}
-    >
+    <section id="contact" className="section contact-section">
       <ScrollReveal direction="up">
         <div className="eyebrow">Get in touch</div>
 
@@ -23,43 +19,62 @@ export default function Contact() {
           nihalmv.dev@gmail.com
         </a>
 
-        {/* Resume Button */}
+        {/* Resume */}
         <div className="resume-wrapper">
           <a
-            href="/resume.pdf"
-            download="Nihal-Resume.pdf"
+            href="/Nihal_Resume.pdf"
+            download
             className="resume-button"
           >
-            <span className="resume-icon">↓</span>
+            <FaDownload />
             <span>Download Resume</span>
-            <span className="resume-shine"></span>
           </a>
         </div>
 
-        <div className="contact-links">
+        {/* Social Buttons */}
+        <div className="social-buttons">
+
           <a
             href="https://github.com/nihalmv-ops"
             target="_blank"
             rel="noopener noreferrer"
+            className="social-button github"
           >
-            GitHub
+            <span className="social-icon">
+              <FaGithub />
+            </span>
+
+            <span>GitHub</span>
           </a>
 
           <a
             href="https://www.linkedin.com/in/nihal-mv-dev/"
             target="_blank"
             rel="noopener noreferrer"
+            className="social-button linkedin"
           >
-            LinkedIn
+            <span className="social-icon">
+              <FaLinkedinIn />
+            </span>
+
+            <span>LinkedIn</span>
           </a>
 
-          <a href="https://www.instagram.com/niihalnico/">
-            Instagram
-          </a>
+          <a
+  href="https://www.instagram.com/"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="social-button instagram"
+>
+  <span className="social-icon">
+    <FaInstagram />
+  </span>
+
+  <span>Instagram</span>
+</a>
+
         </div>
       </ScrollReveal>
     </section>
   );
 }
-
-

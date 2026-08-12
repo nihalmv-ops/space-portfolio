@@ -44,7 +44,7 @@ export default function Planet({
         <mesh scale={size * 1.03}>
           <sphereGeometry args={[1, 64, 64]} />
           <meshBasicMaterial
-            color="#88ccff"
+            color="#a7b7c3"
             transparent
             opacity={0.08}
             side={THREE.BackSide}
