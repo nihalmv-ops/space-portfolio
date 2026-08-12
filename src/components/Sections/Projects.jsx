@@ -6,8 +6,7 @@ import ScrollReveal, {
 
 import "./Projects.css";
 import ProjectCard from "./ProjectCard";
-import projects from "./project";
-
+import projects from "./Project";
 export default function Projects() {
   return (
     <section
