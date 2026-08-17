@@ -61,7 +61,7 @@ export default function MusicPlayer() {
     <>
       <audio
         ref={audioRef}
-        src="/audio/background.mp3"
+        src="/audio/track.mp3"
         preload="auto"
         loop
       />
